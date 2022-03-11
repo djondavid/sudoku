@@ -14,9 +14,49 @@ body {
   grid-gap: 1px;
 }
 .square {
-  box-shadow: 0 0 0 1px #666;
+  box-shadow: 0 0 0 1px #ccc;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
+.square:hover {
+  background-color: lightgray;
+}
+
+.square:nth-child(3n) {
+  border-right: 1px solid #333;
+}
+
+.square:nth-child(n+19):nth-child(-n+27), .square:nth-child(n+46):nth-child(-n+54) {
+  border-bottom: 1px solid #333;
+}
+
+.square:nth-child(9n) {
+  border-right: none;
+}
+
+#digits {
+  margin-top: 3em;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(9, 2.9em);
+  grid-gap: 3px;
+}
+
+.digit {
+  border: 1px solid lightblue;
+  background-color: aliceblue;
+  height: 2.9em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.digit:hover {
+  background-color: lightblue;
+  cursor: pointer;
+}
+

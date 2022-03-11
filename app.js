@@ -5,7 +5,6 @@ const DIGITS = [1,2,3,4,5,6,7,8,9];
 
 // create board
 const boardDiv = document.getElementById("board");
-console.log(boardDiv)
 for (let i = 0; i < BOARD_LEN; i++) {
   // <div class="square" id="i">i</div>
   let square = document.createElement("div");
@@ -17,4 +16,12 @@ for (let i = 0; i < BOARD_LEN; i++) {
 
 
 // create digits
-const digitDiv = document.getElementById("digits");
+const digitsDiv = document.getElementById("digits");
+for (let i = 1; i <= DIGITS.length; i++) {
+  // <div class="digit" id="i">i</div>
+  let digit = document.createElement("div");
+  digit.id = "digit-"+ i.toString();
+  digit.classList.add("digit");
+  digit.innerText = i;
+  digitsDiv.append(digit)
+}
