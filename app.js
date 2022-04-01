@@ -30,7 +30,6 @@ const getRowBySquare = (index) => {
     for (let i = 0; i < BOARD_LEN; i++) {
       if (i > 0 && i % 9 === 0) {
         rowNum++;
-        console.log("rowNum", rowNum);
       }
       if (index === 0 || index === i) {
         return rowNum;
@@ -48,5 +47,26 @@ const getColumnBySquare = (index) => {
 };
 
 const getBoxBySquare = (index) => {
+  if (index >= 0 && index < BOARD_LEN) {
+    const rowNum = getRowBySquare(index);
+    const colNum = getColumnBySquare(index);
+    const rowInt = Math.floor(rowNum/3);
+    const colInt = Math.floor(colNum/3);
+    
+    // rowInt and colInt and resulting box number
+    // 0,0 -> 0
+    // 0,1 -> 1
+    // 0,2 -> 2
+    // 1,0 -> 3
+    // 1,1 -> 4
+    // 1,2 -> 5
+    // 2,0 -> 6
+    // 2,1 -> 7
+    // 2,2 -> 8
+
+    return rowInt * 3 + colInt;
+  }
   return null;
 };
+
+console.log(getBoxBySquare(8));
