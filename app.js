@@ -11,6 +11,9 @@ for (let i = 0; i < BOARD_LEN; i++) {
   square.id = "square-" + i.toString();
   square.classList.add("square");
   square.innerText = i;
+  square.addEventListener("click", function () {
+    highlightRcb(i);
+  });
   boardDiv.append(square);
 }
 
@@ -50,9 +53,9 @@ const getBoxBySquare = (index) => {
   if (index >= 0 && index < BOARD_LEN) {
     const rowNum = getRowBySquare(index);
     const colNum = getColumnBySquare(index);
-    const rowInt = Math.floor(rowNum/3);
-    const colInt = Math.floor(colNum/3);
-    
+    const rowInt = Math.floor(rowNum / 3);
+    const colInt = Math.floor(colNum / 3);
+
     // rowInt and colInt and resulting box number
     // 0,0 -> 0
     // 0,1 -> 1
@@ -69,4 +72,22 @@ const getBoxBySquare = (index) => {
   return null;
 };
 
-console.log(getBoxBySquare(8));
+const highlightRcb = (index) => {
+  const squares = document.querySelectorAll(".square");
+  squares.forEach((element) => {
+    element.classList.remove("hightlight", "active");
+  });
+  document.getElementById("square-" + index).classList.add("active");
+  const column = getColumnBySquare(index);
+  const row = getRowBySquare(index);
+  const box = getBoxBySquare(index);
+  for (let i = 0; i < BOARD_LEN; i++) {
+    if (
+      column === getColumnBySquare(i) ||
+      row === getRowBySquare(i) ||
+      box === getBoxBySquare(i)
+    ) {
+      document.getElementById("square-" + i).classList.add("hightlight");
+    }
+  }
+};

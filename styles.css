@@ -1,4 +1,6 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 body {
@@ -29,12 +31,21 @@ body {
   border-right: 1px solid #333;
 }
 
-.square:nth-child(n+19):nth-child(-n+27), .square:nth-child(n+46):nth-child(-n+54) {
+.square:nth-child(n + 19):nth-child(-n + 27),
+.square:nth-child(n + 46):nth-child(-n + 54) {
   border-bottom: 1px solid #333;
 }
 
 .square:nth-child(9n) {
   border-right: none;
+}
+
+.square.hightlight {
+  background-color: aliceblue;
+}
+
+.square.active {
+  background-color: lightblue;
 }
 
 #digits {
@@ -59,4 +70,3 @@ body {
   background-color: lightblue;
   cursor: pointer;
 }
-
