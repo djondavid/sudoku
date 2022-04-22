@@ -101,16 +101,7 @@ const highlightRCB = (index) => {
   const colNum = getColumnBySquare(index);
   const boxNum = getBoxBySquare(index);
   
-  console.log("Row: "+ rowNum +" Col: "+ colNum +" Box: "+ boxNum);
-
-  // highlight row, column, box squares
-  // for (let i = 0; i < BOARD_LEN; i++) {
-  //   if (getRowBySquare(i) === rowNum || 
-  //     getColumnBySquare(i) === colNum ||
-  //     getBoxBySquare(i) === boxNum) {
-  //     document.getElementById("square-"+ i).classList.add("highlight");
-  //   }  
-  // }
+  //console.log("Row: "+ rowNum +" Col: "+ colNum +" Box: "+ boxNum);
 
   rowSquares[rowNum].forEach(function(squareIndex) {
     document.getElementById("square-"+squareIndex).classList.add("highlight");
@@ -124,7 +115,6 @@ const highlightRCB = (index) => {
 
   // set active square
   document.getElementById("square-"+ index).classList.add("active");
-  
 }
 
 // create board
@@ -132,10 +122,14 @@ const boardDiv = document.getElementById("board");
 for (let i = 0; i < BOARD_LEN; i++) {
   // <div class="square" id="i">i</div>
   let square = document.createElement("div");
-  square.addEventListener("click", function(){ highlightRCB(i);});
   square.id = "square-" + i.toString();
   square.classList.add("square");
   square.innerText = i;
+
+  square.addEventListener("click", function () {
+    highlightRCB(i);
+  });
+
   boardDiv.append(square);
 }
 
@@ -175,23 +169,21 @@ const getBoxBySquare = (index) => {
   if (index >= 0 && index < BOARD_LEN) {
     const rowNum = getRowBySquare(index);
     const colNum = getColumnBySquare(index);
-    
-    const x = Math.floor(rowNum/BOX_SIZE);
-    const y = Math.floor(colNum/BOX_SIZE);
-    
-    // x,y | boxNum
-    // -------------
-    // 0,0 | 0
-    // 0,1 | 1
-    // 0,2 | 2
-    // 1,0 | 3
-    // 1,1 | 4
-    // 1,2 | 5
-    // 2,0 | 6
-    // 2,1 | 7
-    // 2,2 | 8
+    const rowInt = Math.floor(rowNum / 3);
+    const colInt = Math.floor(colNum / 3);
 
-    return x * BOX_SIZE + y;
+    // rowInt and colInt and resulting box number
+    // 0,0 -> 0
+    // 0,1 -> 1
+    // 0,2 -> 2
+    // 1,0 -> 3
+    // 1,1 -> 4
+    // 1,2 -> 5
+    // 2,0 -> 6
+    // 2,1 -> 7
+    // 2,2 -> 8
+
+    return rowInt * 3 + colInt;
   }
   return null;
 };
