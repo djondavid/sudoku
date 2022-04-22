@@ -37,6 +37,13 @@ body {
   border-right: none;
 }
 
+.square.highlight {
+  background-color: aliceblue;
+}
+.square.active {
+  background-color: lightblue !important;
+}
+
 #digits {
   margin-top: 3em;
   display: grid;
