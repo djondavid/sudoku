@@ -40,20 +40,12 @@ body {
   border-right: none;
 }
 
-<<<<<<< HEAD
-.square.highlight {
-  background-color: aliceblue;
-}
-.square.active {
-  background-color: lightblue !important;
-=======
 .square.hightlight {
   background-color: aliceblue;
 }
 
 .square.active {
   background-color: lightblue;
->>>>>>> c6f7d73361ef8d4a8418709f2525162e021a6d49
 }
 
 #digits {
