@@ -4,7 +4,13 @@ const DIGITS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const BOARD_LEN = 81;
 const RCB_LEN = 9;
 const BOX_SIZE = 3;
- 
+
+const Board = Array.from({ length: BOARD_LEN }, () => ({
+  index: 0,
+  pen: 0,
+  pencil: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+}));
+
 const rowSquares = {
   // 0: [ 0, 1, 2, 3, 4, 5, 6, 7, 8],
   // 1: [ 9,10,11,12,13,14,15,16,17],
@@ -57,9 +63,8 @@ const initCols = () => {
   let colNum = 0;
   let temp = [];
   for (let i = 0; i < BOARD_LEN; i++) {
-    colNum = i%9;
-    if(colSquares[colNum] === undefined)
-    {
+    colNum = i % 9;
+    if (colSquares[colNum] === undefined) {
       colSquares[colNum] = new Array();
     }
     colSquares[colNum].push(i);
@@ -67,17 +72,18 @@ const initCols = () => {
 };
 
 const initBoxes = () => {
-  let colNum, rowNum = 0, boxNum = 0;
+  let colNum,
+    rowNum = 0,
+    boxNum = 0;
   for (let i = 0; i < BOARD_LEN; i++) {
     if (i > 0 && i % 9 === 0) {
-      rowNum ++;
+      rowNum++;
     }
-    colNum = i%9;
-    const x = Math.floor(rowNum/BOX_SIZE);
-    const y = Math.floor(colNum/BOX_SIZE);
+    colNum = i % 9;
+    const x = Math.floor(rowNum / BOX_SIZE);
+    const y = Math.floor(colNum / BOX_SIZE);
     boxNum = x * BOX_SIZE + y;
-    if (boxSquares[boxNum] === undefined)
-    {
+    if (boxSquares[boxNum] === undefined) {
       boxSquares[boxNum] = new Array();
     }
     boxSquares[boxNum].push(i);
@@ -90,32 +96,37 @@ initBoxes();
 
 const highlightRCB = (index) => {
   console.log("highlightRCB for square ", index);
-  
+
   // clear all squares
   const squares = document.querySelectorAll(".square");
-  squares.forEach(function(square) {
+  squares.forEach(function (square) {
     square.classList.remove("active", "highlight");
   });
 
   const rowNum = getRowBySquare(index);
   const colNum = getColumnBySquare(index);
   const boxNum = getBoxBySquare(index);
-  
+
   //console.log("Row: "+ rowNum +" Col: "+ colNum +" Box: "+ boxNum);
 
-  rowSquares[rowNum].forEach(function(squareIndex) {
-    document.getElementById("square-"+squareIndex).classList.add("highlight");
+  rowSquares[rowNum].forEach(function (squareIndex) {
+    document.getElementById("square-" + squareIndex).classList.add("highlight");
   });
-  colSquares[colNum].forEach(function(squareIndex) {
-    document.getElementById("square-"+squareIndex).classList.add("highlight");
+  colSquares[colNum].forEach(function (squareIndex) {
+    document.getElementById("square-" + squareIndex).classList.add("highlight");
   });
-  boxSquares[boxNum].forEach(function(squareIndex) {
-    document.getElementById("square-"+squareIndex).classList.add("highlight");
+  boxSquares[boxNum].forEach(function (squareIndex) {
+    document.getElementById("square-" + squareIndex).classList.add("highlight");
   });
 
   // set active square
-  document.getElementById("square-"+ index).classList.add("active");
-}
+  document.getElementById("square-" + index).classList.add("active");
+};
+
+const getRandomArrayItem = (arr) => {
+  const length = arr.length ?? 0;
+  return Math.floor(Math.random() * length) + 1;
+};
 
 // create board
 const boardDiv = document.getElementById("board");
@@ -187,3 +198,27 @@ const getBoxBySquare = (index) => {
   }
   return null;
 };
+
+const initBoard = () => {
+  const randomIndex = getRandomArrayItem(Board);
+  for (let i = 0; i < BOARD_LEN; i++) {
+    Board[i].index = i;
+  }
+
+  Board[randomIndex].pen = 1;
+  const rowIndex = getRowBySquare(randomIndex);
+  // const columnInex = getColumnBySquare(randomIndex);
+  // const boxIndex = getBoxBySquare(randomIndex);
+
+  rowSquares[rowIndex].forEach((rowSquare) => {
+    const filteredPencil = Board[rowSquare].pencil.filter((item) => {
+      item != Board[randomIndex].pen;
+    });
+    Board[rowSquare].pencil = [...filteredPencil];
+  console.log("board", Board[rowSquare]);
+
+  });
+
+};
+
+initBoard();
